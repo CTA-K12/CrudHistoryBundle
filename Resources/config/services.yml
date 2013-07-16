@@ -1,0 +1,13 @@
+parameters:
+#    mesd_crud_history.example.class: MESD\Crud\HistoryBundle\Example
+
+services:
+#    mesd_crud_history.example:
+#        class: %mesd_crud_history.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    my.listener:
+        class: MESD\Crud\HistoryBundle\Listener\CrudLogListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+        arguments:
+            container: @service_container

@@ -1,0 +1,10 @@
+{
+    "name": "mesd/crud-history-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Crud History bundle",
+    "autoload": {
+        "psr-0": { "MESD\\Crud\\HistoryBundle": "" }
+    },
+    "target-dir": "MESD/Crud/HistoryBundle"
+}

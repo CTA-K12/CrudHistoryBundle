@@ -1,0 +1,52 @@
+MESD\Crud\HistoryBundle\Entity\CrudHistory:
+    type: entity
+    table: crud_history
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        application:
+            type: string
+            length: 255
+            column: application
+            nullable: true
+        authUser:
+            type: string
+            length: 255
+            column: auth_user_id
+            nullable: true
+        modified:
+            type: datetime
+            column: modified
+            nullable: false
+        class:
+            type: string
+            length: 255
+            column: class
+            nullable: false
+        method:
+            type: string
+            length: 255
+            column: method
+            nullable: false
+        action:
+            type: string
+            length: 255
+            column: action
+            nullable: false
+        tableName:
+            type: string
+            length: 255
+            column: table_name
+            nullable: false
+        entity:
+            type: bigint
+            column: entity_id
+            nullable: true
+        changes:
+            type: text
+            column: changes
+            nullable: true
+    lifecycleCallbacks: {  }
