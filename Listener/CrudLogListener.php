@@ -39,7 +39,7 @@ class CrudLogListener
         $trace = debug_backtrace();
         foreach($trace as $caller) {
             if (isset($caller['class'])) {
-                if ((strpos($caller['class'], 'Controller') != false) OR (strpos($caller['class'], 'Fixtures') != false)) {
+                if ((strpos($caller['class'], 'Command') != false) OR (strpos($caller['class'], 'Controller') != false) OR (strpos($caller['class'], 'Fixtures') != false)) {
                     $class = $caller['class'];
                     $method = $caller['function'];
                 }
