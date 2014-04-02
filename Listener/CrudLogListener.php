@@ -37,9 +37,9 @@ class CrudLogListener
             }
         }
         $trace = debug_backtrace();
-        foreach($trace as $caller) {
+        foreach ($trace as $caller) {
             if (isset($caller['class'])) {
-                if ((strpos($caller['class'], 'Command') != false) OR (strpos($caller['class'], 'Controller') != false) OR (strpos($caller['class'], 'Fixtures') != false)) {
+                if ((strpos($caller['class'], 'Command') != false) or (strpos($caller['class'], 'Controller') != false) or (strpos($caller['class'], 'Fixtures') != false)) {
                     $class = $caller['class'];
                     $method = $caller['function'];
                 }
@@ -53,7 +53,8 @@ class CrudLogListener
         $changeArray['modified'] = $modified;
         $changeArray['method'] = $method;
         $changeArray['changes'] = array();
-        foreach ($unitOfWork->getScheduledEntityInsertions() AS $entity) {
+        foreach ($unitOfWork->getScheduledEntityInsertions() as $entity) {
+            /*
             $change = array();
             $change['action'] = 'Entity Insertion';
             $change['changeset']['entity'] = $this->getEntityChanges($unitOfWork->getEntityChangeSet($entity));
@@ -63,8 +64,9 @@ class CrudLogListener
             $change['entityId'] = $entity->getId();
             $change['tableName'] = $classMetadata->getTableName();
             $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
+            */
         }
-        foreach ($unitOfWork->getScheduledEntityUpdates() AS $entity) {
+        foreach ($unitOfWork->getScheduledEntityUpdates() as $entity) {
             $change = array();
             $change['action'] = 'Entity Update';
             $change['changeset']['entity'] = $unitOfWork->getEntityChangeSet($entity);
@@ -75,7 +77,7 @@ class CrudLogListener
             $change['tableName'] = $classMetadata->getTableName();
             $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
         }
-        foreach ($unitOfWork->getScheduledEntityDeletions() AS $entity) {
+        foreach ($unitOfWork->getScheduledEntityDeletions() as $entity) {
             $change = array();
             $change['action'] = 'Entity Deletion';
             $change['changeset']['entity'] = array();
@@ -86,7 +88,7 @@ class CrudLogListener
             $change['tableName'] = $classMetadata->getTableName();
             $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
         }
-        foreach ($unitOfWork->getScheduledCollectionDeletions() AS $collection) {
+        foreach ($unitOfWork->getScheduledCollectionDeletions() as $collection) {
             $change = array();
             $change['action'] = 'Collection Deletion';
             $change['changeset'] = $this->getCollectionChanges($collection);
@@ -103,7 +105,7 @@ class CrudLogListener
             }
             $changeArray['changes'][$change['entityClass']][$change['entityId']]['changeset']['collections'][$tableName] = $change;
         }
-        foreach ($unitOfWork->getScheduledCollectionUpdates() AS $collection) {
+        foreach ($unitOfWork->getScheduledCollectionUpdates() as $collection) {
             $change = array();
             $change['action'] = 'Collection Update';
             $change['changeset'] = $this->getCollectionChanges($collection);
@@ -120,8 +122,8 @@ class CrudLogListener
             }
             $changeArray['changes'][$change['entityClass']][$change['entityId']]['changeset']['collections'][$tableName] = $change;
         }
-        foreach($changeArray['changes'] as $entityChanges) {
-            foreach($entityChanges as $change) {
+        foreach ($changeArray['changes'] as $entityChanges) {
+            foreach ($entityChanges as $change) {
                 $crudHistory = new CrudHistory();
                 $crudHistory->setAction($change['action']);
                 $crudHistory->setApplication($changeArray['application']);
@@ -138,16 +140,18 @@ class CrudLogListener
             }
         }
     }
-    function getEntityChanges($changeSet) {
+    public function getEntityChanges($changeSet)
+    {
         $changes = array();
-        foreach($changeSet as $key => $change) {
+        foreach ($changeSet as $key => $change) {
             $changes[$key] = $change[1];
         }
         return $changes;
     }
-    function getCollectionChanges($collection) {
+    public function getCollectionChanges($collection)
+    {
         $changes = array();
-        foreach($collection as $entity) {
+        foreach ($collection as $entity) {
             $value = strval($entity->getId());
             $changes[$value] = $value;
         }
