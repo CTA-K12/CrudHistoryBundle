@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Crud\HistoryBundle\Tests\Controller;
+namespace Mesd\CrudHistoryBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

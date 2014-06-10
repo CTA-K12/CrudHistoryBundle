@@ -1,4 +1,4 @@
-MESD\Crud\HistoryBundle\Entity\CrudHistory:
+Mesd\CrudHistoryBundle\Entity\CrudHistory:
     type: entity
     table: crud_history
     fields:

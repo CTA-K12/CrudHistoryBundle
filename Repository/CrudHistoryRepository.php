@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Crud\HistoryBundle\Repository;
+namespace Mesd\CrudHistoryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

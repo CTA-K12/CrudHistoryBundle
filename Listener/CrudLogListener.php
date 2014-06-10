@@ -1,10 +1,10 @@
 <?php
 
-namespace MESD\Crud\HistoryBundle\Listener;
+namespace Mesd\CrudHistoryBundle\Listener;
 
 use Doctrine\ORM\Event\OnFlushEventArgs;
-use MESD\Crud\HistoryBundle\Entity\CrudHistory;
-use MESD\Security\AuthenticationBundle\Entity\AuthUser;
+use Mesd\CrudHistoryBundle\Entity\CrudHistory;
+use Mesd\Security\AuthenticationBundle\Entity\AuthUser;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Authentication\Token\AuthUsernamePasswordToken;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Crud\HistoryBundle\Entity;
+namespace Mesd\CrudHistoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -231,7 +231,7 @@ class CrudHistory
         return $this->changes;
     }
     /**
-     * @var \MESD\Security\AuthenticationBundle\Entity\AuthUser
+     * @var \Mesd\Security\AuthenticationBundle\Entity\AuthUser
      */
 
     /**
