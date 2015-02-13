@@ -22,9 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('log_commands')
-                    ->defaultValue('ignore')
-                    ->end()
+                ->scalarNode('log_commands')->defaultValue('ignore')->end()
+                ->scalarNode('entity_manager')->defaultValue('default')->end()
                 ->end()
             ->end()
         ;

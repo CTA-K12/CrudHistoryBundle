@@ -25,9 +25,7 @@ class MesdCrudHistoryExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter(
-            'mesd_crud_history.log_commands',
-            $config['log_commands']
-        );
+        $container->setParameter('mesd_crud_history.log_commands', $config['log_commands']);
+        $container->setParameter('mesd_crud_history.entity_manager', $config['entity_manager']);
     }
 }
