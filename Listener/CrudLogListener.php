@@ -26,7 +26,7 @@ class CrudLogListener
         $class = null;
         $method = null;
         $modified = new \DateTime();
-        $entityManager = $this->container->get('doctrine')->getEntityManager($this->container->getParameter('mesd_crud_history.entity_manager'));
+        $entityManager = $this->container->get('doctrine')->getManager($this->container->getParameter('mesd_crud_history.entity_manager'));
         $unitOfWork = $entityManager->getUnitOfWork();
         $securityContext = $this->container->get('security.context');
         $token = $securityContext->getToken();
