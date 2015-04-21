@@ -20,8 +20,7 @@ class CrudLogListener
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $globals = $this->container->get('twig')->getGlobals();
-        $application = $globals['app_name'];
+        $application  = $this->container->getParameter('mesd_crud_history_app_name');
         $authUserId = null;
         $class = null;
         $method = null;

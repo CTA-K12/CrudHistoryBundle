@@ -57,5 +57,12 @@ Enable the bundle in the kernel:
 #### Step 3:  Update your schema
 
 ``` bash
-$ app/console doctrine:schema:update 
+$ app/console doctrine:schema:update
+```
+
+#### Step 3:  Specify app_name in parameters.yml (or similar place), either as a refelction of another parameter or raw text
+
+```yaml
+    parameters:
+      app_name: %your_app_name_reference%
 ```

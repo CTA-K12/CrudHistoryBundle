@@ -1,5 +1,5 @@
 parameters:
-#    mesd_crud_history.example.class: Mesd\CrudHistoryBundle\Example
+    mesd_crud_history_app_name: %app_name%
 
 services:
 #    mesd_crud_history.example:
