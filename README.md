@@ -26,7 +26,7 @@ place:
     }
 ],
 "require": {
-        " mesd/crud-history-bundle": "dev-master"
+        "mesd/crud-history-bundle": "dev-master"
     },
 ```
 
