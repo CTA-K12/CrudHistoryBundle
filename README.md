@@ -17,15 +17,16 @@ under your "repositories" section, and add the bundle to your "require" section.
 sure not to overwrite any existing repositories or requirements you already have in
 place:
 
+
 ``` json
 "repositories": [
     {
         "type" : "vcs",
-        "url" : "https://github.com/MESD/UserBundle.git"
+        "url" : "https://github.com/MESD/CrudHistoryBundle.git"
     }
 ],
 "require": {
-        "mesd/user-bundle": "dev-master"
+        " mesd/crud-history-bundle": "dev-master"
     },
 ```
 
@@ -51,3 +52,10 @@ Enable the bundle in the kernel:
           ...
         ];
     }
+```
+
+#### Step 3:  Update your schema
+
+``` bash
+$ app/console doctrine:schema:update 
+```
