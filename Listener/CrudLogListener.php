@@ -155,6 +155,9 @@ class CrudLogListener
     {
         $changes = array();
         foreach ($collection as $entity) {
+            if (!method_exists($entity, "getId")) {
+                throw new \Exception('Crud Listener called on entity without getId() method.');
+            }
             $value = strval($entity->getId());
             $changes[$value] = $value;
         }
