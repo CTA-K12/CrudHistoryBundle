@@ -24,6 +24,9 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('log_commands')->defaultValue('ignore')->end()
                 ->scalarNode('entity_manager')->defaultValue('default')->end()
+                ->arrayNode('bundle_whitelist')
+                        ->prototype('scalar')
+                        ->end()
                 ->end()
             ->end()
         ;

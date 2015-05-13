@@ -27,5 +27,6 @@ class MesdCrudHistoryExtension extends Extension
 
         $container->setParameter('mesd_crud_history.log_commands', $config['log_commands']);
         $container->setParameter('mesd_crud_history.entity_manager', $config['entity_manager']);
+        $container->setParameter('mesd_crud_history.bundle_whitelist', $config['bundle_whitelist']);
     }
 }
