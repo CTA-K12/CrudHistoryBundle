@@ -1,6 +1,9 @@
 Mesd\CrudHistoryBundle\Entity\CrudHistory:
     type: entity
     table: crud_history
+    indexes:
+        entity_idx:
+          columns: [ entity_id ]
     fields:
         id:
             type: integer
