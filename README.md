@@ -66,3 +66,15 @@ $ app/console doctrine:schema:update
     parameters:
       app_name: %your_app_name_reference%
 ```
+
+#### Step 4: Establish a whitelist for bundles.  This will use the bundle name as a default point for determining class
+name of the acting controller/service/etc when the context is unclear.
+
+```yaml
+
+    config.yml
+
+    mesd_crud_history:
+        bundle_whitelist:
+            - mesd_sia
+```
