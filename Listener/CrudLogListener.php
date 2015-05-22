@@ -167,8 +167,10 @@ class CrudLogListener
                             // var_dump($entityChangeSetKey);
                             // var_dump($entityChangeSetValue);
                             if ('object' == gettype($entityChangeSetValue[0]) && 'DateTime' != get_class($entityChangeSetValue[0]) ) {
-                                $entityChangeSet[$entityChangeSetKey][0] = $entityChangeSet[$entityChangeSetKey][0]->getId();
-                                $entityChangeSet[$entityChangeSetKey][1] = $entityChangeSet[$entityChangeSetKey][1]->getId();
+                                $entityChangeSet[$entityChangeSetKey][0] = $entityChangeSetValue[0]->getId();
+                            }
+                            if ('object' == gettype($entityChangeSetValue[1]) && 'DateTime' != get_class($entityChangeSetValue[1]) ) {
+                                $entityChangeSet[$entityChangeSetKey][1] = $entityChangeSetValue[1]->getId();
                             }
                         }
                     }
