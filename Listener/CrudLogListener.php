@@ -68,7 +68,7 @@ class CrudLogListener
                 $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
                 */
             }
-            foreach ($unitOfWork->getScheduledEntityUpdates() as $entity) {
+            foreach ($unitOfWork->getScheduledEntityUpdates() as $entityKey => $entity) {
                 $change = array();
                 $change['action'] = 'Entity Update';
                 $change['changeset']['entity'] = $unitOfWork->getEntityChangeSet($entity);
@@ -79,7 +79,8 @@ class CrudLogListener
                 $change['tableName'] = $classMetadata->getTableName();
                 $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
             }
-            foreach ($unitOfWork->getScheduledEntityDeletions() as $entity) {
+
+            foreach ($unitOfWork->getScheduledEntityDeletions() as $entityKey => $entity) {
                 $change = array();
                 $change['action'] = 'Entity Deletion';
                 $change['changeset']['entity'] = array();
@@ -107,6 +108,7 @@ class CrudLogListener
                 }
                 $changeArray['changes'][$change['entityClass']][$change['entityId']]['changeset']['collections'][$tableName] = $change;
             }
+
             foreach ($unitOfWork->getScheduledCollectionUpdates() as $collection) {
                 $change = array();
                 $change['action'] = 'Collection Update';
@@ -124,13 +126,26 @@ class CrudLogListener
                 }
                 $changeArray['changes'][$change['entityClass']][$change['entityId']]['changeset']['collections'][$tableName] = $change;
             }
+
             foreach ($changeArray['changes'] as $entityChanges) {
                 foreach ($entityChanges as $change) {
                     $crudHistory = new CrudHistory();
                     $crudHistory->setAction($change['action']);
                     $crudHistory->setApplication($changeArray['application']);
                     $crudHistory->setAuthUser($changeArray['authUser']);
-                    $crudHistory->setChanges(json_encode($change['changeset']));
+                    if (isset($change['changeset']['entity'])) {
+                        $entityChangeSet = $change['changeset']['entity'];
+                        foreach ($entityChangeSet as $entityChangeSetKey => $entityChangeSetValue) {
+                            // var_dump($entityChangeSetKey);
+                            // var_dump($entityChangeSetValue);
+                            if ('object' == gettype($entityChangeSetValue[0]) && 'DateTime' != get_class($entityChangeSetValue[0]) ) {
+                                $entityChangeSet[$entityChangeSetKey][0] = $entityChangeSet[$entityChangeSetKey][0]->getId();
+                                $entityChangeSet[$entityChangeSetKey][1] = $entityChangeSet[$entityChangeSetKey][1]->getId();
+                            }
+                        }
+                    }
+                    $change['changeset']['entity'] = $entityChangeSet;
+                    $crudHistory->setChanges(json_encode($change['changeset'], JSON_NUMERIC_CHECK));
                     $crudHistory->setClass($changeArray['class']);
                     $crudHistory->setEntity($change['entityId']);
                     $crudHistory->setMethod($changeArray['method']);
@@ -147,6 +162,7 @@ class CrudLogListener
     {
         $changes = array();
         foreach ($changeSet as $key => $change) {
+            var_dump($key);
             $changes[$key] = $change[1];
         }
         return $changes;
@@ -154,7 +170,8 @@ class CrudLogListener
     public function getCollectionChanges($collection)
     {
         $changes = array();
-        foreach ($collection as $entity) {
+        foreach ($collection as $entityKey => $entity) {
+            var_dump($entityKey);
             $value = strval($entity->getId());
             $changes[$value] = $value;
         }
