@@ -35,17 +35,45 @@ class CrudLogListener
                 $authUserId = $authUser->getId();
             }
         }
+
+        $class = null;
         $trace = debug_backtrace();
         foreach ($trace as $caller) {
+            // caller['class'] is the class changing the record
             if (isset($caller['class'])) {
-                if ((strpos($caller['class'], 'Command') !== false)
-                    || (strpos($caller['class'], 'Controller') !== false)
-                    || (strpos($caller['class'], 'Fixtures') !== false)) {
-                    $class = $caller['class'];
-                    $method = $caller['function'];
+               $loopClass = $caller['class'];
+                // the following list is a collection of classes
+                // we expect to be likely to be effecting change
+                //
+                // This list should be expanded if needs change
+                //
+
+                $likelyList = array("Command","Controller","Fixtures");
+                foreach ($likelyList as $key => $likelylistItem){
+                    if (stripos($loopClass, $likelylistItem)){
+                        $class = $caller['class'];
+                        $method = $caller['function'];
+                        break;
+                    }
                 }
+
+                if (!$class) {
+                    $whiteList = $this->container->getParameter('mesd_crud_history.bundle_whitelist');
+                    $whiteList = array_map(function($w) { return str_replace('_', '\\',$w);}, $whiteList);
+                    foreach ($whiteList as $key => $whitelistItem){
+                        if (stripos($loopClass, $whitelistItem) !== false){
+                            $class = $caller['class'];
+                            $method = $caller['function'];
+                            break;
+                        }
+                    }
+                }
+
             }
         }
+
+        if (!$class)  { $class = 'Unknown/Unclear';}
+        if (!$method) { $method = 'Unknown/Unclear';}
 
         if (('log' == $this->container->getParameter('mesd_crud_history.log_commands')) || (strpos($class, 'Command') === false)) {
             $changeArray = array();
@@ -170,8 +198,10 @@ class CrudLogListener
     public function getCollectionChanges($collection)
     {
         $changes = array();
-        foreach ($collection as $entityKey => $entity) {
-            var_dump($entityKey);
+        foreach ($collection as $entity) {
+            if (!method_exists($entity, "getId")) {
+                throw new \Exception('Crud Listener called on entity without getId() method.');
+            }
             $value = strval($entity->getId());
             $changes[$value] = $value;
         }
