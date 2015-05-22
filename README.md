@@ -67,8 +67,7 @@ $ app/console doctrine:schema:update
       app_name: %your_app_name_reference%
 ```
 
-#### Step 4: Establish a whitelist for bundles.  This will use the bundle name as a default point for determining class
-name of the acting controller/service/etc when the context is unclear.
+#### Step 4: Establish a whitelist for bundles.  This will use the bundle name as a default point for determining class name of the acting controller/service/etc when the context is unclear.
 
 ```yaml
 
@@ -77,4 +76,15 @@ name of the acting controller/service/etc when the context is unclear.
     mesd_crud_history:
         bundle_whitelist:
             - mesd_sia
+```
+
+#### Step 5: Specify logging for console commands.  By default console commands are not logged
+Turn logging on in config.yml:
+
+```yaml
+
+    config.yml
+
+    mesd_crud_history:
+        log_commands: log
 ```
