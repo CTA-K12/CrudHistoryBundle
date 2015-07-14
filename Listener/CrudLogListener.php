@@ -173,6 +173,8 @@ class CrudLogListener
                                 $entityChangeSet[$entityChangeSetKey][1] = $entityChangeSetValue[1]->getId();
                             }
                         }
+                    } else {
+                        $entityChangeSet = [];
                     }
                     $change['changeset']['entity'] = $entityChangeSet;
                     $crudHistory->setChanges(json_encode($change['changeset'], JSON_NUMERIC_CHECK));
