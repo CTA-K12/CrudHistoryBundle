@@ -135,7 +135,6 @@ class CrudLogListener
             }
 
             foreach ($unitOfWork->getScheduledCollectionUpdates() as $collection) {
-                var_dump($mapping);die;
                 $change                = [];
                 $change['action']      = 'Collection Update';
                 $change['changeset']   = $this->getCollectionChanges($collection);
