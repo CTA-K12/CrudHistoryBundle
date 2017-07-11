@@ -101,7 +101,7 @@ class CrudLogListener
                 $change['entityClass']                                               = get_class($entity);
                 $classMetadata                                                       = $entityManager->getClassMetadata($change['entityClass']);
                 $change['entityId']                                                  = $entity->getId();
-                $change['tableName']                                                 = $classMetadata->getTableName();
+                $change['tableName']                                                 = ($classMetadata->getTableName() ?: "unknown");
                 $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
             }
 
@@ -113,7 +113,7 @@ class CrudLogListener
                 $change['entityClass']                                               = get_class($entity);
                 $classMetadata                                                       = $entityManager->getClassMetadata($change['entityClass']);
                 $change['entityId']                                                  = $entity->getId();
-                $change['tableName']                                                 = $classMetadata->getTableName();
+                $change['tableName']                                                 = ($classMetadata->getTableName() ?: "unknown");
                 $changeArray['changes'][$change['entityClass']][$change['entityId']] = $change;
             }
             foreach ($unitOfWork->getScheduledCollectionDeletions() as $collection) {
@@ -124,7 +124,7 @@ class CrudLogListener
                 $change['entityClass'] = get_class($entity);
                 $change['entityId']    = strval($entity->getId());
                 $mapping               = $collection->getMapping();
-                $tableName             = $mapping['joinTable']['name'];
+                $tableName             = ($mapping['joinTable']['name'] ?: "unknown");
                 $change['tableName']   = $tableName;
                 if (!isset($changeArray['changes'][$change['entityClass']][$change['entityId']])) {
                     $changeArray['changes'][$change['entityClass']][$change['entityId']]['action']    = $change['action'];
@@ -135,6 +135,7 @@ class CrudLogListener
             }
 
             foreach ($unitOfWork->getScheduledCollectionUpdates() as $collection) {
+                var_dump($mapping);die;
                 $change                = [];
                 $change['action']      = 'Collection Update';
                 $change['changeset']   = $this->getCollectionChanges($collection);
@@ -142,7 +143,7 @@ class CrudLogListener
                 $change['entityClass'] = get_class($entity);
                 $change['entityId']    = strval($entity->getId());
                 $mapping               = $collection->getMapping();
-                $tableName             = $mapping['joinTable']['name'];
+                $tableName             = ($mapping['joinTable']['name'] ?: "unknown");
                 $change['tableName']   = $tableName;
                 if (!isset($changeArray['changes'][$change['entityClass']][$change['entityId']])) {
                     $changeArray['changes'][$change['entityClass']][$change['entityId']]['action']    = $change['action'];
