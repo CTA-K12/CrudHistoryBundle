@@ -124,7 +124,7 @@ class CrudLogListener
                 $change['entityClass'] = get_class($entity);
                 $change['entityId']    = strval($entity->getId());
                 $mapping               = $collection->getMapping();
-                $tableName             = (isset(mapping['joinTable']) && isset($mapping['joinTable']['name']) && $mapping['joinTable']['name'] ? $mapping['joinTable']['name'] : "unknown");
+                $tableName             = (isset($mapping['joinTable']) && isset($mapping['joinTable']['name']) && $mapping['joinTable']['name'] ? $mapping['joinTable']['name'] : "unknown");
                 $change['tableName']   = $tableName;
                 if (!isset($changeArray['changes'][$change['entityClass']][$change['entityId']])) {
                     $changeArray['changes'][$change['entityClass']][$change['entityId']]['action']    = $change['action'];
@@ -142,7 +142,7 @@ class CrudLogListener
                 $change['entityClass'] = get_class($entity);
                 $change['entityId']    = strval($entity->getId());
                 $mapping               = $collection->getMapping();
-                $tableName             = (isset(mapping['joinTable']) && isset($mapping['joinTable']['name']) && $mapping['joinTable']['name'] ? $mapping['joinTable']['name'] : "unknown");
+                $tableName             = (isset($mapping['joinTable']) && isset($mapping['joinTable']['name']) && $mapping['joinTable']['name'] ? $mapping['joinTable']['name'] : "unknown");
                 $change['tableName']   = $tableName;
                 if (!isset($changeArray['changes'][$change['entityClass']][$change['entityId']])) {
                     $changeArray['changes'][$change['entityClass']][$change['entityId']]['action']    = $change['action'];
