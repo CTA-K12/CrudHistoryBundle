@@ -1,5 +1,5 @@
 parameters:
-    mesd_crud_history_app_name: %app_name%
+    mesd_crud_history_app_name: "%app_name%"
 
 services:
 #    mesd_crud_history.example:
@@ -10,4 +10,4 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
         arguments:
-            container: "@service_container"
+            $container: "@service_container"

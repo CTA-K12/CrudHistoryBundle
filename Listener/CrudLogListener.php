@@ -1,5 +1,4 @@
 <?php
-
 namespace Mesd\CrudHistoryBundle\Listener;
 
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -191,7 +190,6 @@ class CrudLogListener
     {
         $changes = [];
         foreach ($changeSet as $key => $change) {
-            var_dump($key);
             $changes[$key] = $change[1];
         }
         return $changes;
