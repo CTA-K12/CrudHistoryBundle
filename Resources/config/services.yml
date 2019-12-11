@@ -10,4 +10,4 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
         arguments:
-            $container: "@service_container"
+            container: "@service_container"
